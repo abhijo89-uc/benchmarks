@@ -3,5 +3,4 @@ WORKDIR /root/csv/
 COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 COPY indexer.py /root/
-
 CMD [ "python", "/root/indexer.py" ]

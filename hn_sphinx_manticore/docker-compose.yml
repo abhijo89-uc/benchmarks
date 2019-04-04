@@ -32,6 +32,7 @@ services:
     expose:
       - 9306
     container_name: "hn_sphinx"
+
   indexer:
     build:
       context: .

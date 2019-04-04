@@ -15,11 +15,10 @@ WORKDIR /root/
 COPY manticore.conf /root/
 
 FROM index as searchd
-COPY manticore.conf /root/
+COPY sphinx.conf /root/
 RUN ln -sv /dev/stdout /root/query.log
 RUN ln -sv /dev/stdout /root/searchd.log
 VOLUME /root
-RUN mkdir /index/
-
-CMD ["searchd", "-c", "/root/manticore.conf", "--nodetach", "--force-preread", "--iostats"]
+RUN mkdir /sphinx/
+CMD ["searchd", "-c", "/root/sphinx.conf", "--nodetach", "--force-preread", "--iostats"]
 

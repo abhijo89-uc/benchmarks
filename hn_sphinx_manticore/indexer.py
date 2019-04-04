@@ -21,6 +21,7 @@ class Indexer(object):
         comment_text, comment_author, comment_ranking, author_comment_count, story_comment_count) VALUES (
         %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
         counter = 1
+
         with open('/root/csv/hacker_news_comments.prepared.csv') as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
@@ -46,7 +47,8 @@ class Indexer(object):
 
 if __name__ == '__main__':
 
-    host_list = ['hn_manticore', ]
+    host_list = ['hn_manticore', 'hn_sphinx']
     for host in host_list:
+        print("Indexing for {}".format(host))
         index_object = Indexer(host)
         index_object.index()
