@@ -10,10 +10,7 @@ RUN apk add --no-cache \
     mariadb-dev \
     postgresql-dev \
     expat-dev \
-    mariadb-client \
-    unzip \
-    ca-certificates \
-    openssl
+    mariadb-client
 RUN update-ca-certificates
 RUN mkdir /build && cd /build \
 && git clone https://github.com/manticoresoftware/manticore.git  \
@@ -44,7 +41,7 @@ COPY --from=builder /build/manticore/build/src/searchd /usr/bin/
 WORKDIR /root/
 
 COPY manticore.conf /root/
-COPY indexer.py /root/
+
 
 FROM index as searchd
 COPY manticore.conf /root/

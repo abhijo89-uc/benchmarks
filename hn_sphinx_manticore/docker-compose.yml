@@ -1,5 +1,14 @@
 version: '2.1'
 services:
+#  hn_csv:
+#    build:
+#      context: .
+#      dockerfile: Dockerfile_csv
+#
+#    container_name: "hn_csv"
+#    volumes:
+#      - /home/mis/data/csv/:/root/csv/
+
   hn_manticore:
     build:
       context: .

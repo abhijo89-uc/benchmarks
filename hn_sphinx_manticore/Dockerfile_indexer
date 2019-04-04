@@ -2,6 +2,6 @@ FROM python:3
 WORKDIR /root/csv/
 COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
-COPY indexer.py ./
+COPY indexer.py /root/
 
-CMD [ "python", "indexer.py" ]
+CMD [ "python", "/root/indexer.py" ]
