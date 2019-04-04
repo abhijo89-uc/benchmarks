@@ -24,6 +24,8 @@ class Indexer(object):
         with open('/root/csv/hacker_news_comments.prepared.csv') as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
+                if not counter % 1000:
+                    print("Total Processed {}".format(counter))
                 if None in row.values():
                     continue
                 args = (
