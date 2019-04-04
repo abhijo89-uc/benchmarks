@@ -20,6 +20,8 @@ services:
     expose:
       - 9306
     container_name: "hn_manticore"
+    volumes:
+    - /home/mis/data/manticore/:/manticore/
 
   hn_sphinx:
     build:
@@ -32,6 +34,8 @@ services:
     expose:
       - 9306
     container_name: "hn_sphinx"
+    volumes:
+    - /home/mis/data/sphinx/:/sphinx/
 
   indexer:
     build:
@@ -45,12 +49,13 @@ services:
       - hn_manticore
       - hn_sphinx
 
-#  hn_test:
-#    build:
-#      context: test
-#    container_name: "hn_test"
-#
-#    depends_on:
-#      - indexer
+  hn_test:
+    build:
+      context: test
+    container_name: "hn_test"
+
+    depends_on:
+      - indexer
+    command: 'sh'
 
 
