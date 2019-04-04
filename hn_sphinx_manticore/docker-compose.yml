@@ -22,8 +22,9 @@ services:
     expose:
       - 9306
     container_name: "hn_sphinx"
-  hn_test:
-    build:
-      context: test
-    container_name: "hn_test"
+
+#  hn_test:
+#    build:
+#      context: test
+#    container_name: "hn_test"
 
