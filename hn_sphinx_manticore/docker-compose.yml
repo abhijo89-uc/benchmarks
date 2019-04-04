@@ -23,6 +23,9 @@ services:
     volumes:
     - /home/mis/data/manticore/:/manticore/
 
+    ports:
+      - 9307:9306
+
   hn_sphinx:
     build:
       context: .
@@ -35,7 +38,9 @@ services:
       - 9306
     container_name: "hn_sphinx"
     volumes:
-    - /home/mis/data/sphinx/:/sphinx/
+      - /home/mis/data/sphinx/:/sphinx/
+    ports:
+      - 9308:9306
 
   indexer:
     build:
@@ -48,6 +53,7 @@ services:
     depends_on:
       - hn_manticore
       - hn_sphinx
+
 
   hn_test:
     build:
