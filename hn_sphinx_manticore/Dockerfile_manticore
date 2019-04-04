@@ -1,3 +1,4 @@
+
 FROM alpine:3.6 as builder
 RUN apk add --no-cache \
     git \
@@ -9,10 +10,14 @@ RUN apk add --no-cache \
     mariadb-dev \
     postgresql-dev \
     expat-dev \
-    mariadb-client
+    mariadb-client \
+    unzip \
+    ca-certificates \
+    openssl
+RUN update-ca-certificates
 RUN mkdir /build && cd /build \
 && git clone https://github.com/manticoresoftware/manticore.git  \
-&& cd manticore && git checkout manticore-2.8.2 \
+&& cd manticore && git checkout manticore-2.8.1 \
 && mkdir -p build && cd build \
 && cmake \
     -D SPLIT_SYMBOLS=1 \
@@ -32,9 +37,6 @@ RUN apk add --no-cache \
     mariadb-client-libs \
     postgresql-libs \
     expat
-
-RUN pip install --upgrade pip setuptools
-
 COPY --from=builder /build/manticore/build/src/indexer /usr/bin/
 COPY --from=builder /build/manticore/build/src/indextool /usr/bin/
 COPY --from=builder /build/manticore/build/src/searchd /usr/bin/
@@ -44,12 +46,10 @@ WORKDIR /root/
 COPY manticore.conf /root/
 COPY indexer.py /root/
 
-RUN python -c /root/manticore.conf --all
-RUN rm hacker_news_comments.prepared.csv
-
 FROM index as searchd
 COPY manticore.conf /root/
 RUN ln -sv /dev/stdout /root/query.log
 RUN ln -sv /dev/stdout /root/searchd.log
 VOLUME /root
+RUN mkdir /index/
 CMD ["/usr/bin/searchd", "-c", "/root/manticore.conf", "--nodetach", "--force-preread", "--iostats"]

@@ -11,17 +11,23 @@ services:
     expose:
       - 9306
     container_name: "hn_manticore"
-#  hn_sphinx:
-#    build:
-#      context: .
-#      dockerfile: Dockerfile_sphinx
-#    ulimits:
-#      memlock:
-#        soft: -1
-#        hard: -1
-#    expose:
-#      - 9306
-#    container_name: "hn_sphinx"
+
+  hn_sphinx:
+    build:
+      context: .
+      dockerfile: Dockerfile_sphinx
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    expose:
+      - 9306
+    container_name: "hn_sphinx"
+  indexer:
+    build:
+      context: .
+      dockerfile: Dockerfile_indexer
+    container_name: "indexer"
 
 #  hn_test:
 #    build:
