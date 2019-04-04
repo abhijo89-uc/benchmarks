@@ -6,10 +6,10 @@ import MySQLdb.cursors
 
 class Indexer(object):
 
-    def __init__(self, host):
+    def __init__(self, host, port):
         connection = MySQLdb.connect(
             host=host,
-            port=9306,
+            port=port,
             cursorclass=MySQLdb.cursors.DictCursor,
             use_unicode=True,
             charset='utf8',
@@ -46,9 +46,21 @@ class Indexer(object):
 
 
 if __name__ == '__main__':
+    import multiprocessing
 
-    host_list = ['hn_manticore', 'hn_sphinx']
-    for host in host_list:
-        print("Indexing for {}".format(host))
-        index_object = Indexer(host)
+    def index_search(host, port):
+        index_object = Indexer(host, port)
         index_object.index()
+
+    def index_manticore(host, port):
+        index_object = Indexer(host, port)
+        index_object.index()
+
+
+    queue = multiprocessing.Queue()
+    host_list = [('hn_manticore', 9307), ('hn_sphinx', 9308)]
+    for host, port in host_list:
+        proc1 = multiprocessing.Process(target=index_manticore, args=(host, port))
+        proc2 = multiprocessing.Process(target=index_search, args=(host, port))
+        proc1.start()
+        proc2.start()
