@@ -12,4 +12,4 @@ COPY generate_queries.php .
 COPY hn_top.txt .
 COPY test.sh .
 #CMD ["sleep", "10000"]
-CMD [ "bash", "./test.sh" ]
+CMD [ "bash", "./test.sh"]

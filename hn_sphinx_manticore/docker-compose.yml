@@ -29,10 +29,18 @@ services:
       dockerfile: Dockerfile_indexer
     container_name: "indexer"
     volumes:
-    - /home/mis/data/csv/:/root/csv/
+      - /home/mis/data/csv/:/root/csv/
+
+    depends_on:
+      - hn_manticore
+      - hn_sphinx
 
 #  hn_test:
 #    build:
 #      context: test
 #    container_name: "hn_test"
+#
+#    depends_on:
+#      - indexer
+
 

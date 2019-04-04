@@ -32,9 +32,12 @@ class Indexer(object):
                     row['story_author'], row['comment_id'], row['comment_text'], row['comment_author'],
                     row['comment_ranking'], row['author_comment_count'], row['story_comment_count']
                 )
-                curr = self.conn.cursor()
-                curr.execute(sql, args)
-                counter += 1
+                try:
+                    curr = self.conn.cursor()
+                    curr.execute(sql, args)
+                    counter += 1
+                except:
+                    continue
 
         return True
 
