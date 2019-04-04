@@ -21,7 +21,7 @@ class Indexer(object):
         comment_text, comment_author, comment_ranking, author_comment_count, story_comment_count) VALUES (
         %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
         counter = 1
-        with open('example.csv') as csvfile:
+        with open('/root/csv/hacker_news_comments.prepared.csv') as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
                 if None in row.values():

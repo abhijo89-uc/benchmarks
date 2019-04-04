@@ -28,6 +28,8 @@ services:
       context: .
       dockerfile: Dockerfile_indexer
     container_name: "indexer"
+    volumes:
+    - /home/mis/data/csv/:/root/csv/
 
 #  hn_test:
 #    build:
