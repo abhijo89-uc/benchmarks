@@ -2,6 +2,7 @@ import csv
 
 import MySQLdb
 import MySQLdb.cursors
+import time
 
 
 class Indexer(object):
@@ -16,13 +17,14 @@ class Indexer(object):
         )
         self.conn = connection
 
-    def index(self):
+    def index(self, name):
+        ts = time.time()
         sql = """INSERT INTO full (id, story_id, story_time, story_url, story_text, story_author, comment_id, 
         comment_text, comment_author, comment_ranking, author_comment_count, story_comment_count) VALUES (
         %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
         counter = 1
 
-        with open('/root/csv/hacker_news_comments.prepared.csv') as csvfile:
+        with open('/home/mis/data/csv//hacker_news_comments.prepared.csv') as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
                 if not counter % 1000:
@@ -41,7 +43,7 @@ class Indexer(object):
                     counter += 1
                 except:
                     continue
-
+        print("Total Time Taken for {0} is {1}".format(name, time.time()-ts))
         return True
 
 
@@ -50,17 +52,17 @@ if __name__ == '__main__':
 
     def index_search(host, port):
         index_object = Indexer(host, port)
-        index_object.index()
+        index_object.index('sphinx')
 
     def index_manticore(host, port):
         index_object = Indexer(host, port)
-        index_object.index()
+        index_object.index('manticore')
 
 
     queue = multiprocessing.Queue()
     host_list = [('hn_manticore', 9307), ('hn_sphinx', 9308)]
     for host, port in host_list:
-        proc1 = multiprocessing.Process(target=index_manticore, args=(host, port))
-        proc2 = multiprocessing.Process(target=index_search, args=(host, port))
+        proc1 = multiprocessing.Process(target=index_manticore, args=('127.0.0.1', port))
+        proc2 = multiprocessing.Process(target=index_search, args=('127.0.0.1', port))
         proc1.start()
         proc2.start()
