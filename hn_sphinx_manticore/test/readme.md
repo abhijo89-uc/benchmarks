@@ -1,0 +1,1 @@
+docker run  --network hn_sphinx_manticore_default  -it 7b4d78cecb58
