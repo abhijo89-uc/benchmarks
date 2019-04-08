@@ -1,0 +1,21 @@
+FROM alpine:3.6 as index
+RUN apk add --no-cache \
+    mariadb-libs \
+    mariadb-client-libs \
+    postgresql-libs \
+    expat
+
+COPY --from=builder /media/m2/searchd /usr/bin/
+
+WORKDIR /root/
+
+COPY manticore.conf /root/
+
+
+FROM index as searchd
+COPY manticore.conf /root/
+RUN ln -sv /dev/stdout /root/query.log
+RUN ln -sv /dev/stdout /root/searchd.log
+VOLUME /root
+RUN mkdir /manticore3/
+CMD ["/usr/bin/searchd", "-c", "/root/manticore.conf", "--nodetach", "--force-preread", "--iostats"]
