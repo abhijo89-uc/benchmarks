@@ -24,7 +24,7 @@ class Indexer(object):
         %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
         counter = 1
 
-        with open('/home/mis/data/csv//hacker_news_comments.prepared.csv') as csvfile:
+        with open('/home/mis/data/csv/hacker_news_comments.prepared.csv') as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
                 if not counter % 1000:
