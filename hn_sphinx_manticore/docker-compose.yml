@@ -24,7 +24,7 @@ services:
     - /home/mis/data/manticore/:/manticore/
 
     ports:
-      - 9307:9306
+      - 9090:9306
 
   hn_manticore3:
     build:
@@ -42,7 +42,7 @@ services:
     - /media/m2/m3/:/root/m3/
 
     ports:
-    - 9308:9306
+    - 9091:9306
 
   hn_sphinx:
     build:
@@ -58,7 +58,7 @@ services:
     volumes:
       - /home/mis/data/sphinx/:/sphinx/
     ports:
-      - 9309:9306
+      - 9092:9306
 
 #  indexer:
 #    build:
