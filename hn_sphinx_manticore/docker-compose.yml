@@ -39,7 +39,7 @@ services:
     container_name: "hn_manticore3"
     volumes:
     - /home/mis/data/manticore3/:/manticore3/
-    - /media/m2/m3:/root/m3/
+    - /media/m2/m3/:/root/m3/
 
     ports:
     - 9308:9306
