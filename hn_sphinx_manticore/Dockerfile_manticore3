@@ -5,8 +5,7 @@ RUN apk add --no-cache \
     postgresql-libs \
     expat
 
-VOLUME /media/m2/ /root/m2/
-COPY  /root/m2//searchd /usr/bin/
+VOLUME /media/m2/m3/ /root/m3/
 
 WORKDIR /root/
 
@@ -19,4 +18,4 @@ RUN ln -sv /dev/stdout /root/query.log
 RUN ln -sv /dev/stdout /root/searchd.log
 VOLUME /root
 RUN mkdir /manticore3/
-CMD ["/usr/bin/searchd", "-c", "/root/manticore.conf", "--nodetach", "--force-preread", "--iostats"]
+CMD ["/root/m3/searchd", "-c", "/root/manticore3.conf", "--nodetach", "--force-preread", "--iostats"]
