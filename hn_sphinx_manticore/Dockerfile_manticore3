@@ -5,7 +5,6 @@ RUN apk add --no-cache \
     postgresql-libs \
     expat
 
-VOLUME /media/m2/m3/ /root/m3/
 
 WORKDIR /root/
 
