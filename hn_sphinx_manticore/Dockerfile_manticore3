@@ -5,7 +5,7 @@ RUN apk add --no-cache \
     postgresql-libs \
     expat
 
-COPY --from=builder /media/m2/searchd /usr/bin/
+COPY  /media/m2/searchd /usr/bin/
 
 WORKDIR /root/
 
