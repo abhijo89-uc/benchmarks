@@ -25,6 +25,22 @@ services:
 
     ports:
       - 9307:9306
+  hn_manticore:
+    build:
+      context: .
+      dockerfile: Dockerfile_manticore3
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    expose:
+    - 9306
+    container_name: "hn_manticore3"
+    volumes:
+    - /home/mis/data/manticore3/:/manticore3/
+
+    ports:
+    - 9308:9306
 
   hn_sphinx:
     build:
@@ -40,7 +56,7 @@ services:
     volumes:
       - /home/mis/data/sphinx/:/sphinx/
     ports:
-      - 9308:9306
+      - 9309:9306
 
 #  indexer:
 #    build:
