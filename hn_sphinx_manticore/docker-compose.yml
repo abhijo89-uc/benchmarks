@@ -25,7 +25,7 @@ services:
 
     ports:
       - 9307:9306
-  hn_manticore:
+  hn_manticore3:
     build:
       context: .
       dockerfile: Dockerfile_manticore3
