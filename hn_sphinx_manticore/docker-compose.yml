@@ -25,6 +25,7 @@ services:
 
     ports:
       - 9307:9306
+      
   hn_manticore3:
     build:
       context: .
